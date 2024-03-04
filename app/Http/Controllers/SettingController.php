@@ -22,40 +22,31 @@ class SettingController extends Controller
  
     public function update(Request $request, $id)
     {
- 
-         $this->validate($request, [
- 
-        'oldpassword' => 'required',
-        'newpassword' => 'required',
+        $this->validate($request, [
+            'oldpassword' => 'required',
+            'newpassword' => 'required',
         ]);
- 
- 
- 
-       $hashedPassword = Auth::user()->password;
- 
-       if (\Hash::check($request->oldpassword , $hashedPassword )) {
- 
-         if (!\Hash::check($request->newpassword , $hashedPassword)) {
- 
-              $users =User::find(Auth::user()->id);
-              $users->password = bcrypt($request->newpassword);
-              User::where( 'id' , Auth::user()->id)->update( array( 'password' =>  $users->password));
- 
-              session()->flash('message','Password updated successfully');
-              return redirect()->back();
+    
+        $user = Auth::user();
+    
+        $hashedPassword = $user->password;
+    
+        if (\Hash::check($request->oldpassword , $hashedPassword )) {
+            if (!\Hash::check($request->newpassword , $hashedPassword)) {
+                // Update the password
+                $user->password = bcrypt($request->newpassword);
+                $user->save();
+    
+                session()->flash('success','Password updated successfully');
+                return redirect()->back();
+            } else {
+                session()->flash('error','New password cannot be the same as the old password!');
+                return redirect()->back();
             }
- 
-            else{
-                  session()->flash('error','New password can not be the old password!');
-                  return redirect()->back();
-                }
- 
-           }
- 
-          else{
-               session()->flash('error','Old password doesnt matched ');
-               return redirect()->back();
-             }
- 
-       }
+        } else {
+            session()->flash('error','Old password does not match');
+            return redirect()->back();
+        }
+    }
+    
 }

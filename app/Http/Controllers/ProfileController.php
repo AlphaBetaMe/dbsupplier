@@ -190,4 +190,80 @@ class ProfileController extends Controller
     {
         //
     }
+
+    public function supplierProfile()
+{
+    $user = Auth::user();
+
+    return view('admin.users.supplierProfile', compact('user'));
+}
+
+    public function updateSupplierProfile(Request $request, $id)
+{
+    $user = Auth::user();
+
+        if($request->hasFile('image'))
+        {
+            $path = 'assets/uploads/profile/'.$user->image;
+            if(File::exists($path))
+            {
+                File::delete($path);
+            }
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalName();;
+            $filename = time().'.'.$ext;
+            $file->move('assets/uploads/profile/',$filename);
+            $user->image=$filename;
+        }
+        
+        $user->name=$request->Input('name');
+        $user->supplierName=$request->Input('supplierName');
+        $user->email=$request->Input('email');
+        $user->lname=$request->Input('lname');
+        $user->phone=$request->Input('phone');
+        $user->address1=$request->Input('address1');
+        $user->address2=$request->Input('address2');
+        $user->city=$request->Input('city');
+        $user->state=$request->Input('state');
+        $user->country=$request->Input('country');
+        $user->pincode=$request->Input('pincode');
+
+        $user->update();
+
+        return redirect()->route('users.supplierProfile')->with('success', 'Profile updated successfully.');
+    }
+
+    public function editSupplierPassword($id)
+{
+    $user = Auth::user();
+    return view('admin.users.supplierChangePassword', compact('user'));
+}
+
+public function updateSupplierPassword(Request $request, $id)
+{
+    $request->validate([
+        'oldpassword' => 'required',
+        'newpassword' => 'required|min:8|confirmed',
+    ], 
+    [
+        'newpassword.confirmed' => 'The new password confirmation does not match.',
+    ]);
+
+    // Get the authenticated user
+    $user = Auth::user();
+
+    // Check if the old password matches the user's current password
+    if (!Hash::check($request->oldpassword, $user->password)) {
+        return redirect()->back()->with('error', 'The old password is incorrect.');
+    }
+
+    // Update the user's password
+    $user->update([
+        'password' => Hash::make($request->newpassword),
+    ]);
+
+    return redirect()->route('users.supplierProfile')->with('success', 'Password updated successfully.');
+}
+
+
 }

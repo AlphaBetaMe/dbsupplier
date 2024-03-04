@@ -58,13 +58,14 @@
 
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item nav-profile dropdown">
+            <p class="mb-0 d-none d-sm-block navbar-profile-name mr-2">{{ Auth::user()->name }}</p>
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="{{ asset('assets/uploads/profile/' . auth()->user()->image) }}" alt="profile" />
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
+              <a class="dropdown-item" href="{{ route('users.supplierProfile', Auth::user())}}">
+                <i class="ti-user text-primary"></i>
+                My Profile
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
@@ -367,24 +368,22 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   @if (session('success'))
-  <script>
-    Swal.fire(
-      '',
-      '{{ session('
-      success ') }}',
-      'success'
-    )
-  </script>
+      <script>
+      Swal.fire(
+          '',
+          '{{ session('success') }}',
+          'success'
+      )
+      </script>
   @endif
-
+  
 
   @if (session('error'))
   <script>
-    Swal.fire({
-      icon: 'error',
-      text: '{{ session('
-      error ') }}',
-    })
+  Swal.fire({
+  icon: 'error',
+  text: '{{ session('error') }}',
+  })
   </script>
   @endif
 </body>

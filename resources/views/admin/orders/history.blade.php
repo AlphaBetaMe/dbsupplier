@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h4 class="card-title">Booking History</h4>
-                            <a href="{{url('orders')}}" class="btn btn-warning text-light">Bookings History</a>
+                            <a href="{{url('orders')}}" class="btn btn-primary text-light">New Bookings</a>
                         </div>
                         {{-- <p class="card-description">
                         Payment Details
@@ -29,7 +29,7 @@
                             <a href="{{route('orders.index')}}" class="btn btn-info ml-2">Refresh</a>
                         </form>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive text-center">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -50,9 +50,9 @@
                                     <td>{{$order->total_price}}</td>
                                     <td><span class="badge badge-success">{{$order->status}}</span></td>
                                     <td>
-                                        <a href="{{url('admin/viewOrder/'.$order->id)}}" class="btn btn-primary">View</a>
+                                        <a href="{{url('admin/viewOrder/'.$order->id)}}" class="btn btn-primary btn-sm">View</a>
                                          {!! Form::open(['method' => 'DELETE','route' => ['orders.destroy', $order->id],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>

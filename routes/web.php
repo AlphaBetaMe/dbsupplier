@@ -95,7 +95,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('users/myprofile/{id}', [App\Http\Controllers\ProfileController::class, 'updateprofile'])->name('users.updatemyProfile');
     Route::put('users/userupdatePassword/{id}', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('users.userupdatePass');
 
+    Route::get('users/supplierProfile', [App\Http\Controllers\ProfileController::class, 'supplierProfile'])->name('users.supplierProfile');
+    Route::put('users/updateSupplierProfile/{id}', [App\Http\Controllers\ProfileController::class, 'updateSupplierProfile'])->name('users.updateSupplierProfile');
+    Route::get('users/supplierChangePassword/{id}', [App\Http\Controllers\ProfileController::class, 'editSupplierPassword'])->name('users.supplierChangePassword');
+    Route::put('users/supplierChangePassword/{id}', [App\Http\Controllers\ProfileController::class, 'updateSupplierPassword'])->name('users.updateSupplierPassword');
 
+    
     // Route::post('proceed-payment', [CheckoutController::class, 'razorPay']);
     // Route::post('proceed-gcashpayment', [CheckoutController::class, 'gcashPay']);
 
@@ -106,20 +111,21 @@ Route::middleware(['auth'])->group(function () {
     // Route::put('admin/product/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
     // Route::get('admin/product/destroy/{id}',[App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('supplier/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products.index');
-    Route::get('supplier/products/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('products.create');
+    Route::get('supplier/products/create-service', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('products.create');
     Route::post('supplier/products/create', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('products.store');
-    Route::get('supplier/products/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('products.edit');
+    Route::get('supplier/products/edit-products/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('products.edit');
     Route::put('supplier/product/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
     Route::get('supplier/product/destroy/{id}', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy');
 
 
     Route::get('admin/viewOrder/{id}', [App\Http\Controllers\Admin\OrderController::class, 'view']);
+    // Route::get('supplier/viewOrder/{id}', [App\Http\Controllers\Admin\OrderController::class, 'view']);
     Route::put('update-OrderStatus/{id}', [App\Http\Controllers\Admin\OrderController::class, 'updateOrder']);
     Route::get('order-history', [App\Http\Controllers\Admin\OrderController::class, 'orderHistory']);
 
-    Route::resource('update-password', 'App\Http\Controllers\SettingController');
+    Route::resource('admin/update-password', 'App\Http\Controllers\SettingController');
     // Route::patch('update-password/{id}', [App\Http\Controllers\SettingController::class, 'update'])->name('update-password.update');
-    Route::patch('update-password/{id}', [App\Http\Controllers\ProfileController::class, 'update'])->name('update-password.update');
+    Route::patch('admin/update-password/{id}', [App\Http\Controllers\ProfileController::class, 'update'])->name('update-password.update');
     Route::get('admin/pos/transaction', [App\Http\Controllers\Admin\PosController::class, 'posTransaction'])->name('pos.transaction');
 });
 
@@ -210,7 +216,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('supplier/paymentQR', [App\Http\Controllers\PaymentQrController::class, 'index'])->name('paymentQR.index');
     Route::get('supplier/paymentQR/create-payment', [App\Http\Controllers\PaymentQrController::class, 'create'])->name('paymentQR.create');
     Route::post('supplier/paymentQR/create', [App\Http\Controllers\PaymentQrController::class, 'store'])->name('paymentQR.store');
-    Route::get('supplier/paymentQR/edit/{id}', [App\Http\Controllers\PaymentQrController::class, 'edit'])->name('paymentQR.edit');
+    Route::get('supplier/paymentQR/edit-payment/{id}', [App\Http\Controllers\PaymentQrController::class, 'edit'])->name('paymentQR.edit');
     Route::put('supplier/paymentQR/update/{id}', [App\Http\Controllers\PaymentQrController::class, 'update'])->name('paymentQR.update');
     Route::delete('supplier/paymentQR/destroy/{id}', [App\Http\Controllers\PaymentQrController::class, 'destroy'])->name('paymentQR.destroy');
 
@@ -232,8 +238,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::resource('timelines', 'App\Http\Controllers\TimelineController');
-    Route::resource('admin/events', 'App\Http\Controllers\EventController');
-    // Route::resource('supplier/events','App\Http\Controllers\EventController');
+    // Route::resource('admin/events', 'App\Http\Controllers\EventController');
+    Route::resource('supplier/events','App\Http\Controllers\EventController');
     // Route::resource('admin/contacts','App\Http\Controllers\ContactUsController');
     Route::resource('supplier/contacts', 'App\Http\Controllers\ContactUsController');
     // Route::resource('admin/pos2', 'App\Http\Controllers\Admin\Pos2Controller');

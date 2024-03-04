@@ -29,7 +29,7 @@
                             <a href="{{route('orders.index')}}" class="btn btn-info ml-2">Refresh</a>
                         </form>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive text-center">
                         <table class="table table-hover">
                             <thead>
                                 <tr>

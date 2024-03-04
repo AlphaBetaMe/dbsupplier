@@ -1,75 +1,44 @@
-@extends('layouts.sample')
+@extends('layouts.admin')
+@section('title', 'Create Categories')
 @section('content')
-
-<div class="container-fluid mt-2 py-2">
-    @if(Session::has('message'))
-    <div class="alert alert-success{{ Session::get('class') }} alert-dismissible fade show alert-custom"
-        role="alert">
-        {{ Session::get('message') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @elseif(Session::has('error'))
-     <div class="alert alert-danger{{ Session::get('class') }} alert-dismissible fade show alert-custom"
-        role="alert">
-        {{ Session::get('error') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
-</div>
-<div class="mt-2 py-2">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                Change Password
-
-                <!-- admin -->
-                </div>
-                <div class="card-body">
-                   
-                     <form id="updatePasswordForm" action="{{ route('update-password.update', ['id' => Auth::id()]) }}" method="post">
-                        @csrf
-                        @method('PATCH')
-
-                        <div class="form-group">
-                            <label for="oldpassword">Old Password</label>
-                            <input type="password" id="oldpassword" class="form-control" name="oldpassword" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="newpassword">New Password</label>
-                            <input type="password" id="newpassword" class="form-control" name="newpassword" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="confirm-password">Confirm Password</label>
-                            <input type="password" id="confirm-password" class="form-control" name="confirm-password" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-dark">Update Password</button>
-                    </form>
-                </div>
-            </div>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">Password</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Update</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Password</h4>
+                        <form id="updatePasswordForm" action="{{ route('update-password.update', ['id' => Auth::id()]) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                                    <div class="form-group">
+                                        <label for="oldpassword">Old Password</label>
+                                        <input type="password" id="oldpassword" class="form-control" name="oldpassword" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newpassword">New Password</label>
+                                        <input type="password" id="newpassword" class="form-control" name="newpassword" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirm Password</label>
+                                        <input type="password" id="confirm-password" class="form-control" name="confirm-password" required>
+                                    </div>
+                                    <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-success">Update Password</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
         </div>
     </div>
-    
 </div>
-<script>
-    $(document).ready(function () {
-        $('#updatePasswordForm').submit(function (event) {
-            var newPassword = $('#newpassword').val();
-            var confirmPassword = $('#confirm-password').val();
-
-            if (newPassword !== confirmPassword) {
-                alert('New password and confirmation password do not match.');
-                event.preventDefault(); // Prevent form submission
-            }
-        });
-    });
-</script>
-
-@endsection 
+@endsection

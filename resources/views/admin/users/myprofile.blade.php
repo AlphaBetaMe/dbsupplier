@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Manage Users')
+@section('title', 'My Profile')
 @section('content')
 <div class="main-panel">
     <div class="content-wrapper">
@@ -23,7 +23,7 @@
                                     <h4 class="card-title">Update Profile Picture</h4>
                                     <div class="avatar mx-auto">
                                         {{-- <img src="{{ asset('assets/uploads/profile/'.$user->image) }}" class="rounded-circle img-fluid" width="300px" /> --}}
-                                        <img class="rounded-circle img-fluid " src="{{ asset('assets/uploads/profile/' . auth()->user()->image) }}" width="300px" alt="User Image">
+                                        <img src="{{ asset('assets/uploads/profile/' . auth()->user()->image) }}" width="350px" height="350px" alt="User Image" style="border-radius: 50%;">
                                     </div>
                                     <div class="card-body">
                                         <input type="file" name="image" class="form-control">

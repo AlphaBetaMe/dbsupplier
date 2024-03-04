@@ -62,8 +62,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Image</label>
-                                        <input type="file" class="form-control" name="image">
-                                        <img src ="assets/uploads/services/{{$products->image}}" width="250px">
+                                        <input type="file" class="form-control mb-4" name="image">
+                                        <img src="{{ asset('assets/uploads/services/'.$products->image)}}" width="250px">
                                     </div>
                                 </div>
                             </div>

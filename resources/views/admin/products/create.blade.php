@@ -14,8 +14,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select name="cate_id" class="form-control" required>
-                                            <option value="">Select Category</option>
+                                        <select name="cate_id" class="form-control text-dark" required>
+                                            <option value="" class="text-muted">Select Category</option>
                                             @foreach($categories as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach

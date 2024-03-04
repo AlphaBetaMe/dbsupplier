@@ -11,9 +11,9 @@
                             <h4 class="card-title">Event Status Legend</h4>
                         </div>
                         <div id="calendar"></div>
-                        <div class="legend text-light">
+                        <div class="legend text-light mt-5">
                             <span class="badge bg-secondary">Book Placed</span>
-                            <span class="badge bg-warning">Verified</span>
+                            <span class="badge bg-primary">Verified</span>
                             <span class="badge bg-success">Done</span>
                             <span class="badge bg-danger">Cancelled</span>
                         </div>
@@ -30,6 +30,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="orderModalLabel">Event Details</h5>
+                <button type="button" class="close" onclick="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body" id="orderModalBody"></div>
         </div>
@@ -67,7 +70,7 @@
                 );
 
                 $.ajax({
-                    url: '/orders/' + calEvent.orderId,
+                    url: '/orders/' + calEvent.orderId, 
                     type: 'GET',
                     success: function(data) {
                         $('#orderModalBody').append('<p>Additional Detail: ' + data.trackingNumber + '</p>');
@@ -90,7 +93,7 @@
                         backgroundColor = 'green';
                         break;
                     case 'Verified':
-                        backgroundColor = 'yellow';
+                        backgroundColor = 'primary';
                         break;
                     default:
                         backgroundColor = 'gray';
@@ -105,4 +108,10 @@
         });
     });
 </script>
+<script>
+    function closeModal() {
+        $('#orderModal').modal('hide');
+    }
+</script>
+
 @endsection
